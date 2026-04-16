@@ -1,0 +1,44 @@
+@model GasStationApp.Models.Station
+
+<div class="d-flex align-items-center mb-4">
+    <img src="@Model.GetLogoPath()" alt="@Model.brand" style="height: 60px; width: 60px; object-fit: contain;" class="me-4" />
+    <div>
+        <h1 class="h2 mb-0">@Model.name</h1>
+        <span class="badge bg-secondary">@Model.brand</span>
+    </div>
+</div>
+<p class="text-muted"><i class="bi bi-geo-alt"></i> @Model.street_address</p>
+
+@if (Model.LatestReport != null)
+{
+    <div class="alert @(Model.LatestReport.available ? "alert-success" : "alert-danger") shadow-sm border-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="alert-heading mb-0">@(Model.LatestReport.available ? "Fuel Available" : "Out of Fuel")</h4>
+            <span class="badge rounded-pill bg-@Model.LatestReport.GetQueueColor() fs-6 px-3">
+                <i class="bi bi-clock-history"></i> @Model.LatestReport.GetQueueStatus() Queue
+            </span>
+        </div>
+        <hr>
+        <div class="row text-center">
+            <div class="col-4 border-end">
+                <small class="text-muted d-block text-uppercase">Fuel Type</small>
+                <span class="fw-bold fs-5">@Model.LatestReport.fuel_type</span>
+            </div>
+            <div class="col-4 border-end">
+                <small class="text-muted d-block text-uppercase">Wait</small>
+                <span class="fw-bold fs-5">@Model.LatestReport.queue_mins m</span>
+            </div>
+            <div class="col-4">
+                <small class="text-muted d-block text-uppercase">Price</small>
+                <span class="fw-bold fs-5 text-primary">@(Model.LatestReport.price.HasValue ? $"R {Model.LatestReport.price.Value:N2}" : "—")</span>
+            </div>
+        </div>
+        <div class="mt-3 text-end small opacity-75">
+            Reported @Model.LatestReport.created_at.ToString("f")
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">No reports for this station yet.</div>
+}

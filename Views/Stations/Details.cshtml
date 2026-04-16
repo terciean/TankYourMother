@@ -1,0 +1,106 @@
+@model GasStationApp.Models.Station
+@using System.Text.Json
+
+@{
+    var isPartial = ViewBag.IsPartial ?? false;
+    Layout = isPartial ? null : "_Layout";
+    ViewData["Title"] = Model.name;
+    var reports = ViewBag.Reports as IEnumerable<GasStationApp.Models.Report>;
+}
+
+@if (isPartial)
+{
+    <form id="antiForgeryForm">@Html.AntiForgeryToken()</form>
+    <div class="modal-header">
+        <h5 class="modal-title">@Model.name</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-7">
+                <partial name="_StationInfo" model="Model" />
+                <h6 class="mt-4">Recent History</h6>
+                <div style="max-height: 250px; overflow-y: auto;">
+                    <partial name="_ReportHistory" model="reports?.Take(5)" />
+                </div>
+            </div>
+            <div class="col-md-5 border-start">
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <partial name="_ReportWizard" model="Model" />
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <i class="bi bi-lock fs-1 text-muted mb-3"></i>
+                        <p class="small text-muted">Please login to report.</p>
+                        <a href="/Account/Login?returnUrl=/Stations/Map" class="btn btn-outline-primary btn-sm w-100">Login</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <partial name="_StationInfo" model="Model" />
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Queue Trends</h4>
+                        <small class="text-muted">Last 24 hours</small>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="queueChart" style="width:100%; height:200px;"></canvas>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white">
+                        <h4 class="mb-0">Full History</h4>
+                    </div>
+                    <div class="card-body">
+                        <partial name="_ReportHistory" model="reports" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm sticky-top" style="top: 20px;">
+                    <div class="card-header bg-primary text-white"><h5 class="mb-0">Submit Report</h5></div>
+                    <div class="card-body">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <partial name="_ReportWizard" model="Model" />
+                        }
+                        else
+                        {
+                            <div class="text-center py-4">
+                                <i class="bi bi-lock fs-1 text-muted mb-3"></i>
+                                <p>Please sign in to report.</p>
+                                <a href="/Account/Login" class="btn btn-primary w-100">Sign In</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+            window.chartData = @Html.Raw(JsonSerializer.Serialize((reports ?? Enumerable.Empty<GasStationApp.Models.Report>())
+                .Where(r => r.created_at >= DateTime.UtcNow.AddDays(-1))
+                .OrderBy(r => r.created_at)
+                .Select(r => new { time = r.created_at.ToString("HH:mm"), queue = r.queue_mins })));
+        </script>
+        <script src="~/js/station-details.js" asp-append-version="true"></script>
+    }
+}

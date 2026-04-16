@@ -1,0 +1,89 @@
+@model GasStationApp.Models.Station
+
+<div id="reportWizard">
+    <h6 class="mb-3">Quick Report</h6>
+    
+    <!-- Step 1: Availability -->
+    <div id="step1" class="report-step">
+        <p class="fw-bold mb-3">Is there fuel available?</p>
+        <div class="d-grid gap-2">
+            <button type="button" onclick="reportStep(2, {available: true})" class="btn btn-outline-success py-3 fw-bold">
+                <i class="bi bi-check-circle-fill"></i> YES, FUEL IS HERE
+            </button>
+            <button type="button" onclick="submitQuickReport({available: false, fuel_type: 'N/A', queue_mins: 0})" class="btn btn-outline-danger py-3 fw-bold">
+                <i class="bi bi-x-circle-fill"></i> NO, THEY ARE OUT
+            </button>
+        </div>
+    </div>
+
+    <!-- Step 2: Fuel Type -->
+    <div id="step2" class="report-step d-none">
+        <p class="fw-bold mb-3">Which fuel is available?</p>
+        <div class="d-grid gap-2">
+            <button type="button" onclick="reportStep(3, {fuel_type: 'Gasoline'})" class="btn btn-light border py-2">Gasoline / Petrol</button>
+            <button type="button" onclick="reportStep(3, {fuel_type: 'Diesel'})" class="btn btn-light border py-2">Diesel</button>
+            <button type="button" onclick="reportStep(3, {fuel_type: 'Both'})" class="btn btn-light border py-2">Both</button>
+            <button type="button" onclick="reportStep(1)" class="btn btn-link btn-sm text-muted mt-2">Back</button>
+        </div>
+    </div>
+
+    <!-- Step 3: Queue -->
+    <div id="step3" class="report-step d-none">
+        <p class="fw-bold mb-3">Queue Length?</p>
+        <div class="d-grid gap-2 mb-3">
+            <button type="button" onclick="reportStep(4, {queue_mins: 5})" class="btn btn-outline-success py-2 fw-bold">
+                LOW <small class="fw-normal">(&lt; 10 mins)</small>
+            </button>
+            <button type="button" onclick="reportStep(4, {queue_mins: 20})" class="btn btn-outline-warning py-2 fw-bold">
+                MEDIUM <small class="fw-normal">(10-30 mins)</small>
+            </button>
+            <button type="button" onclick="reportStep(4, {queue_mins: 45})" class="btn btn-outline-danger py-2 fw-bold">
+                HIGH <small class="fw-normal">(30+ mins)</small>
+            </button>
+            <button type="button" onclick="toggleCustomQueue()" class="btn btn-light border py-2">
+                SPECIFIC MINUTES...
+            </button>
+        </div>
+
+        <div id="customQueueInput" class="d-none">
+            <div class="input-group shadow-sm mb-2">
+                <input type="number" id="customMins" class="form-control" placeholder="Minutes">
+                <button class="btn btn-primary" type="button" onclick="submitCustomQueue()">NEXT</button>
+            </div>
+            <button type="button" onclick="toggleCustomQueue()" class="btn btn-link btn-sm text-muted w-100 p-0">Cancel</button>
+        </div>
+        
+        <button type="button" onclick="reportStep(2)" class="btn btn-link btn-sm text-muted w-100 mt-3">Back</button>
+    </div>
+
+    <!-- Step 4: Price -->
+    <div id="step4" class="report-step d-none">
+        <p class="fw-bold mb-3">Fuel Price? <small class="text-muted fw-normal">(Optional)</small></p>
+        <div class="d-grid gap-2 mb-3">
+             <button type="button" onclick="togglePriceInput()" class="btn btn-outline-primary py-2 fw-bold">
+                <i class="bi bi-tag-fill"></i> ADD PRICE
+            </button>
+            <button type="button" onclick="submitQuickReport({price: null})" class="btn btn-light border py-2">
+                SKIP PRICE
+            </button>
+        </div>
+
+        <div id="priceInputArea" class="d-none">
+            <div class="input-group shadow-sm mb-2">
+                <span class="input-group-text">R</span>
+                <input type="number" id="fuelPrice" class="form-control" placeholder="0.00" step="0.01">
+                <button class="btn btn-primary" type="button" onclick="submitPrice()">SUBMIT</button>
+            </div>
+            <button type="button" onclick="togglePriceInput()" class="btn btn-link btn-sm text-muted w-100 p-0">Cancel</button>
+        </div>
+
+        <button type="button" onclick="reportStep(3)" class="btn btn-link btn-sm text-muted w-100 mt-3">Back</button>
+    </div>
+
+    <!-- Success State -->
+    <div id="stepSuccess" class="report-step d-none text-center py-4">
+        <i class="bi bi-check-circle-fill text-success fs-1 mb-2"></i>
+        <h5 class="fw-bold">Report Submitted!</h5>
+        <p class="small text-muted">Thanks for helping the community.</p>
+    </div>
+</div>

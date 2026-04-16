@@ -1,0 +1,1127 @@
+2026-04-15 15:51:34.662 +02:00 [ERR] An error occurred while migrating the database.
+System.Net.Sockets.SocketException (0x00002AF9): No such host is known.
+   at System.Net.Dns.GetHostEntryOrAddressesCore(String hostName, Boolean justAddresses, AddressFamily addressFamily, Nullable`1 startingTimestamp)
+   at System.Net.Dns.GetHostAddresses(String hostNameOrAddress, AddressFamily family)
+   at Npgsql.Internal.NpgsqlConnector.Connect(NpgsqlTimeout timeout)
+   at Npgsql.Internal.NpgsqlConnector.RawOpen(SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|213_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists()
+   at Microsoft.EntityFrameworkCore.Migrations.HistoryRepository.Exists()
+   at Microsoft.EntityFrameworkCore.Migrations.HistoryRepository.GetAppliedMigrations()
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Migrations.Internal.NpgsqlMigrator.Migrate(String targetMigration)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.Migrate(DatabaseFacade databaseFacade)
+   at Program.<Main>$(String[] args) in C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\Program.cs:line 90
+2026-04-15 15:51:34.929 +02:00 [INF] Starting web host
+2026-04-15 15:51:34.958 +02:00 [INF] User profile is available. Using 'C:\Users\Tristan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-15 15:51:35.119 +02:00 [INF] Now listening on: http://localhost:5184
+2026-04-15 15:51:35.123 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-15 15:51:35.126 +02:00 [INF] Hosting environment: Development
+2026-04-15 15:51:35.130 +02:00 [INF] Content root path: C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS
+2026-04-15 15:52:31.070 +02:00 [INF] Application is shutting down...
+2026-04-15 16:05:47.076 +02:00 [INF] Executed DbCommand (272ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:05:48.621 +02:00 [INF] Executed DbCommand (205ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:05:51.181 +02:00 [INF] Executed DbCommand (205ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:05:53.919 +02:00 [INF] Executed DbCommand (323ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:05:55.379 +02:00 [INF] Executed DbCommand (200ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:05:55.412 +02:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-15 16:05:58.144 +02:00 [INF] Executed DbCommand (203ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2026-04-15 16:06:00.194 +02:00 [INF] Executed DbCommand (202ms) [Parameters=[@__adminEmail_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."UserName" = @__adminEmail_0
+LIMIT 1
+2026-04-15 16:06:01.831 +02:00 [INF] Executed DbCommand (200ms) [Parameters=[@p0='?', @p1='?' (DbType = Int32), @p2='?', @p3='?', @p4='?' (DbType = Boolean), @p5='?' (DbType = Int32), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?', @p9='?', @p10='?', @p11='?', @p12='?' (DbType = Boolean), @p13='?', @p14='?' (DbType = Boolean), @p15='?'], CommandType='"Text"', CommandTimeout='60']
+INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", karma, "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15);
+2026-04-15 16:06:03.311 +02:00 [INF] Executed DbCommand (150ms) [Parameters=[@__adminUser_Id_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AspNetUserClaims" AS a
+    WHERE a."UserId" = @__adminUser_Id_0 AND a."ClaimType" = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role' AND a."ClaimValue" = 'Admin')
+2026-04-15 16:06:04.563 +02:00 [INF] Executed DbCommand (164ms) [Parameters=[@p0='?', @p1='?', @p2='?'], CommandType='"Text"', CommandTimeout='60']
+INSERT INTO "AspNetUserClaims" ("ClaimType", "ClaimValue", "UserId")
+VALUES (@p0, @p1, @p2)
+RETURNING "Id";
+2026-04-15 16:06:05.824 +02:00 [INF] Executed DbCommand (204ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM stations AS s)
+2026-04-15 16:06:05.909 +02:00 [INF] Starting web host
+2026-04-15 16:06:05.927 +02:00 [INF] User profile is available. Using 'C:\Users\Tristan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-15 16:06:06.005 +02:00 [INF] Now listening on: http://localhost:5184
+2026-04-15 16:06:06.012 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-15 16:06:06.014 +02:00 [INF] Hosting environment: Development
+2026-04-15 16:06:06.017 +02:00 [INF] Content root path: C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS
+2026-04-15 16:06:49.079 +02:00 [INF] Application is shutting down...
+2026-04-15 16:07:17.168 +02:00 [INF] Executed DbCommand (438ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:07:18.742 +02:00 [INF] Executed DbCommand (156ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:07:21.501 +02:00 [INF] Executed DbCommand (208ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:07:24.162 +02:00 [INF] Executed DbCommand (206ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:07:25.902 +02:00 [INF] Executed DbCommand (355ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:07:25.930 +02:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-15 16:07:28.565 +02:00 [INF] Executed DbCommand (247ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2026-04-15 16:07:30.566 +02:00 [INF] Executed DbCommand (184ms) [Parameters=[@__adminEmail_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."UserName" = @__adminEmail_0
+LIMIT 1
+2026-04-15 16:07:32.148 +02:00 [INF] Executed DbCommand (204ms) [Parameters=[@__adminUser_Id_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AspNetUserClaims" AS a
+    WHERE a."UserId" = @__adminUser_Id_0 AND a."ClaimType" = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role' AND a."ClaimValue" = 'Admin')
+2026-04-15 16:07:33.239 +02:00 [INF] Executed DbCommand (147ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM stations AS s)
+2026-04-15 16:07:33.461 +02:00 [INF] Starting web host
+2026-04-15 16:07:33.508 +02:00 [INF] User profile is available. Using 'C:\Users\Tristan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-15 16:07:33.624 +02:00 [INF] Now listening on: http://localhost:5184
+2026-04-15 16:07:33.628 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-15 16:07:33.631 +02:00 [INF] Hosting environment: Development
+2026-04-15 16:07:33.634 +02:00 [INF] Content root path: C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS
+2026-04-15 16:07:40.653 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/ - null null
+2026-04-15 16:07:42.298 +02:00 [INF] Executed DbCommand (200ms) [Parameters=[@__p_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = @__p_0
+LIMIT 1
+2026-04-15 16:07:43.878 +02:00 [INF] Executed DbCommand (158ms) [Parameters=[@__user_Id_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."ClaimType", a."ClaimValue", a."UserId"
+FROM "AspNetUserClaims" AS a
+WHERE a."UserId" = @__user_Id_0
+2026-04-15 16:07:45.536 +02:00 [INF] Executed DbCommand (216ms) [Parameters=[@__userId_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a0."Name"
+FROM "AspNetUserRoles" AS a
+INNER JOIN "AspNetRoles" AS a0 ON a."RoleId" = a0."Id"
+WHERE a."UserId" = @__userId_0
+2026-04-15 16:07:45.585 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Index (GasStationApp)'
+2026-04-15 16:07:45.643 +02:00 [INF] Route matched with {action = "Index", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(Int32, System.Nullable`1[System.Double], System.Nullable`1[System.Double]) on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:07:47.304 +02:00 [INF] Executed DbCommand (204ms) [Parameters=[@__p_1='?' (DbType = Int32), @__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='60']
+SELECT t.id, t.brand, t.lat, t.lng, t.name, t.street_address, t.suburb, t0.id, t0.available, t0.created_at, t0.downvotes, t0."fuel type", t0.is_hidden, t0.notes, t0.photo_url, t0.price, t0.queue_mins, t0.station_id, t0.upvotes, t0.user_id
+FROM (
+    SELECT s.id, s.brand, s.lat, s.lng, s.name, s.street_address, s.suburb
+    FROM stations AS s
+    ORDER BY s.name
+    LIMIT @__p_1 OFFSET @__p_0
+) AS t
+LEFT JOIN (
+    SELECT t1.id, t1.available, t1.created_at, t1.downvotes, t1."fuel type", t1.is_hidden, t1.notes, t1.photo_url, t1.price, t1.queue_mins, t1.station_id, t1.upvotes, t1.user_id
+    FROM (
+        SELECT r.id, r.available, r.created_at, r.downvotes, r."fuel type", r.is_hidden, r.notes, r.photo_url, r.price, r.queue_mins, r.station_id, r.upvotes, r.user_id, ROW_NUMBER() OVER(PARTITION BY r.station_id ORDER BY r.created_at DESC) AS row
+        FROM reports AS r
+        WHERE NOT (r.is_hidden)
+    ) AS t1
+    WHERE t1.row <= 1
+) AS t0 ON t.id = t0.station_id
+ORDER BY t.name
+2026-04-15 16:07:48.947 +02:00 [INF] Executed DbCommand (311ms) [Parameters=[@__userIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = ANY (@__userIds_0)
+2026-04-15 16:07:50.272 +02:00 [INF] Executed DbCommand (244ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT count(*)::int
+FROM stations AS s
+2026-04-15 16:07:50.433 +02:00 [INF] Executing ViewResult, running view Index.
+2026-04-15 16:07:50.764 +02:00 [INF] Executed ViewResult - view Index executed in 336.2425ms.
+2026-04-15 16:07:50.786 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Index (GasStationApp) in 5131.8809ms
+2026-04-15 16:07:50.819 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/lib/bootstrap/dist/css/bootstrap.min.css - null null
+2026-04-15 16:07:50.821 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Index (GasStationApp)'
+2026-04-15 16:07:50.838 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/css/site.css?v=j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg - null null
+2026-04-15 16:07:50.838 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/GasStationApp.styles.css?v=cjAWXHiUuxjU8niV-6ZG0DcS0ZnGS90coUH_tdWpXjo - null null
+2026-04-15 16:07:50.844 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/lib/jquery/dist/jquery.min.js - null null
+2026-04-15 16:07:50.861 +02:00 [INF] The file /lib/bootstrap/dist/css/bootstrap.min.css was not modified
+2026-04-15 16:07:50.865 +02:00 [INF] The file /css/site.css was not modified
+2026-04-15 16:07:50.872 +02:00 [INF] The file /GasStationApp.styles.css was not modified
+2026-04-15 16:07:50.873 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/ - 200 null text/html; charset=utf-8 10223.8238ms
+2026-04-15 16:07:50.878 +02:00 [INF] The file /lib/jquery/dist/jquery.min.js was not modified
+2026-04-15 16:07:50.886 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/lib/bootstrap/dist/css/bootstrap.min.css - 304 null text/css 66.4574ms
+2026-04-15 16:07:50.887 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/css/site.css?v=j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg - 304 null text/css 48.8857ms
+2026-04-15 16:07:50.891 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/GasStationApp.styles.css?v=cjAWXHiUuxjU8niV-6ZG0DcS0ZnGS90coUH_tdWpXjo - 304 null text/css 52.5489ms
+2026-04-15 16:07:50.904 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2026-04-15 16:07:50.906 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/lib/jquery/dist/jquery.min.js - 304 null text/javascript 62.3091ms
+2026-04-15 16:07:50.912 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/BP.png?v=63911866070590 - null null
+2026-04-15 16:07:50.922 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/astron.jpg?v=63911866070590 - null null
+2026-04-15 16:07:50.931 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/astron.jpg?v=63911866070589 - null null
+2026-04-15 16:07:50.943 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/astron.jpg?v=63911866070584 - null null
+2026-04-15 16:07:50.951 +02:00 [INF] The file /lib/bootstrap/dist/js/bootstrap.bundle.min.js was not modified
+2026-04-15 16:07:50.958 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/site.js?v=R3ShPBTLed3qjP3eBuRFLRHFDzpodqR-2zktesYzkjw - null null
+2026-04-15 16:07:50.993 +02:00 [INF] Sending file. Request path: '/images/logos/BP.png'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\BP.png'
+2026-04-15 16:07:50.993 +02:00 [INF] Sending file. Request path: '/images/logos/astron.jpg'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\astron.jpg'
+2026-04-15 16:07:50.993 +02:00 [INF] Sending file. Request path: '/images/logos/astron.jpg'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\astron.jpg'
+2026-04-15 16:07:51.001 +02:00 [INF] Sending file. Request path: '/images/logos/astron.jpg'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\astron.jpg'
+2026-04-15 16:07:51.004 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 304 null text/javascript 100.4566ms
+2026-04-15 16:07:51.019 +02:00 [INF] Sending file. Request path: '/js/site.js'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\js\site.js'
+2026-04-15 16:07:51.026 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/BP.png?v=63911866070590 - 200 116535 image/png 113.6053ms
+2026-04-15 16:07:51.029 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/astron.jpg?v=63911866070590 - 200 6312 image/jpeg 107.5162ms
+2026-04-15 16:07:51.035 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/astron.jpg?v=63911866070589 - 200 6312 image/jpeg 105.0315ms
+2026-04-15 16:07:51.040 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/astron.jpg?v=63911866070584 - 200 6312 image/jpeg 96.9117ms
+2026-04-15 16:07:51.060 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/site.js?v=R3ShPBTLed3qjP3eBuRFLRHFDzpodqR-2zktesYzkjw - 200 5319 text/javascript 101.6542ms
+2026-04-15 16:07:51.269 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/favicon.ico - null null
+2026-04-15 16:07:51.283 +02:00 [INF] The file /favicon.ico was not modified
+2026-04-15 16:07:51.288 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/favicon.ico - 304 null image/x-icon 18.985ms
+2026-04-15 16:07:53.976 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Map - null null
+2026-04-15 16:07:54.001 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:07:54.011 +02:00 [INF] Route matched with {action = "Map", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Map() on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:07:55.495 +02:00 [INF] Executed DbCommand (205ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='60']
+SELECT s.id, s.name, s.brand, s.lat, s.lng, s.street_address, s.suburb
+FROM stations AS s
+ORDER BY s.id
+LIMIT @__p_0
+2026-04-15 16:07:57.338 +02:00 [INF] Executed DbCommand (199ms) [Parameters=[@__stationIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.station_id, r.available, r."fuel type" AS fuel_type, r.queue_mins, r.price, r.created_at
+FROM reports AS r
+WHERE r.station_id = ANY (@__stationIds_0) AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:07:57.459 +02:00 [INF] Executing ViewResult, running view Map.
+2026-04-15 16:07:57.496 +02:00 [INF] Executed ViewResult - view Map executed in 38.1241ms.
+2026-04-15 16:07:57.509 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Map (GasStationApp) in 3488.1822ms
+2026-04-15 16:07:57.514 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:07:57.522 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Map - 200 null text/html; charset=utf-8 3546.0477ms
+2026-04-15 16:07:57.535 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/map.js?v=TvZ89AIhssJYXaVG-FCuFHlVudmxs_ta43efwM2D8UA - null null
+2026-04-15 16:07:57.532 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/css/map.css?v=zjhGaSu4boRIBioGDzTm9f93NzSuEJAGs3Z1gy57QVM - null null
+2026-04-15 16:07:57.542 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/manifest.json - null null
+2026-04-15 16:07:57.556 +02:00 [INF] Sending file. Request path: '/js/map.js'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\js\map.js'
+2026-04-15 16:07:57.563 +02:00 [INF] Sending file. Request path: '/css/map.css'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\css\map.css'
+2026-04-15 16:07:57.569 +02:00 [INF] The file /manifest.json was not modified
+2026-04-15 16:07:57.572 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/map.js?v=TvZ89AIhssJYXaVG-FCuFHlVudmxs_ta43efwM2D8UA - 200 9594 text/javascript 37.1718ms
+2026-04-15 16:07:57.576 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/css/map.css?v=zjhGaSu4boRIBioGDzTm9f93NzSuEJAGs3Z1gy57QVM - 200 1814 text/css 44.605ms
+2026-04-15 16:07:57.580 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/manifest.json - 304 null application/json 37.2031ms
+2026-04-15 16:07:57.673 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/fuel.png - null null
+2026-04-15 16:07:57.683 +02:00 [INF] The file /images/logos/fuel.png was not modified
+2026-04-15 16:07:57.687 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/fuel.png - 304 null image/png 13.2587ms
+2026-04-15 16:08:46.637 +02:00 [INF] Application is shutting down...
+2026-04-15 16:10:45.698 +02:00 [INF] Executed DbCommand (401ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:10:47.324 +02:00 [INF] Executed DbCommand (201ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:10:50.088 +02:00 [INF] Executed DbCommand (200ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:10:52.772 +02:00 [INF] Executed DbCommand (158ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:10:54.285 +02:00 [INF] Executed DbCommand (205ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:10:54.325 +02:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-15 16:10:56.948 +02:00 [INF] Executed DbCommand (283ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2026-04-15 16:10:58.692 +02:00 [INF] Executed DbCommand (198ms) [Parameters=[@__adminEmail_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."UserName" = @__adminEmail_0
+LIMIT 1
+2026-04-15 16:11:00.122 +02:00 [INF] Executed DbCommand (204ms) [Parameters=[@__adminUser_Id_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AspNetUserClaims" AS a
+    WHERE a."UserId" = @__adminUser_Id_0 AND a."ClaimType" = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role' AND a."ClaimValue" = 'Admin')
+2026-04-15 16:11:01.556 +02:00 [INF] Executed DbCommand (205ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM stations AS s)
+2026-04-15 16:11:01.874 +02:00 [INF] Starting web host
+2026-04-15 16:11:01.930 +02:00 [INF] User profile is available. Using 'C:\Users\Tristan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-15 16:11:02.018 +02:00 [INF] Now listening on: http://localhost:5184
+2026-04-15 16:11:02.024 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-15 16:11:02.026 +02:00 [INF] Hosting environment: Development
+2026-04-15 16:11:02.030 +02:00 [INF] Content root path: C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS
+2026-04-15 16:11:27.572 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Map - null null
+2026-04-15 16:11:27.697 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:11:27.727 +02:00 [INF] Route matched with {action = "Map", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Map() on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:11:29.309 +02:00 [INF] Executed DbCommand (201ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='60']
+SELECT s.id, s.name, s.brand, s.lat, s.lng, s.street_address, s.suburb
+FROM stations AS s
+ORDER BY s.id
+LIMIT @__p_0
+2026-04-15 16:11:31.766 +02:00 [INF] Executed DbCommand (509ms) [Parameters=[@__stationIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.station_id, r.available, r."fuel type" AS fuel_type, r.queue_mins, r.price, r.created_at
+FROM reports AS r
+WHERE r.station_id = ANY (@__stationIds_0) AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:11:32.115 +02:00 [INF] Executing ViewResult, running view Map.
+2026-04-15 16:11:32.376 +02:00 [INF] Executed ViewResult - view Map executed in 270.541ms.
+2026-04-15 16:11:32.388 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Map (GasStationApp) in 4647.7392ms
+2026-04-15 16:11:32.394 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:11:32.418 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Map - 200 null text/html; charset=utf-8 4847.8141ms
+2026-04-15 16:11:32.429 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/map.js?v=jAB5gJrYUUf_bAvpgnLkRYAIIMK8uOUTqifZDX77bW4 - null null
+2026-04-15 16:11:32.449 +02:00 [INF] Sending file. Request path: '/js/map.js'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\js\map.js'
+2026-04-15 16:11:32.455 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/map.js?v=jAB5gJrYUUf_bAvpgnLkRYAIIMK8uOUTqifZDX77bW4 - 200 10386 text/javascript 25.9686ms
+2026-04-15 16:13:45.398 +02:00 [INF] Application is shutting down...
+2026-04-15 16:22:08.928 +02:00 [INF] Executed DbCommand (214ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:22:10.062 +02:00 [INF] Executed DbCommand (160ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:22:12.125 +02:00 [INF] Executed DbCommand (152ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:22:14.142 +02:00 [INF] Executed DbCommand (151ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:22:15.256 +02:00 [INF] Executed DbCommand (154ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:22:15.275 +02:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-15 16:22:17.353 +02:00 [INF] Executed DbCommand (164ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2026-04-15 16:22:18.669 +02:00 [INF] Executed DbCommand (173ms) [Parameters=[@__adminEmail_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."UserName" = @__adminEmail_0
+LIMIT 1
+2026-04-15 16:22:19.846 +02:00 [INF] Executed DbCommand (162ms) [Parameters=[@__adminUser_Id_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AspNetUserClaims" AS a
+    WHERE a."UserId" = @__adminUser_Id_0 AND a."ClaimType" = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role' AND a."ClaimValue" = 'Admin')
+2026-04-15 16:22:20.931 +02:00 [INF] Executed DbCommand (153ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM stations AS s)
+2026-04-15 16:22:21.008 +02:00 [INF] Starting web host
+2026-04-15 16:22:21.025 +02:00 [INF] User profile is available. Using 'C:\Users\Tristan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-15 16:22:21.081 +02:00 [INF] Now listening on: http://localhost:5184
+2026-04-15 16:22:21.086 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-15 16:22:21.088 +02:00 [INF] Hosting environment: Development
+2026-04-15 16:22:21.091 +02:00 [INF] Content root path: C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS
+2026-04-15 16:23:01.789 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/ - null null
+2026-04-15 16:23:01.860 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Index (GasStationApp)'
+2026-04-15 16:23:01.884 +02:00 [INF] Route matched with {action = "Index", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(Int32, System.Nullable`1[System.Double], System.Nullable`1[System.Double]) on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:23:03.121 +02:00 [INF] Executed DbCommand (172ms) [Parameters=[@__p_1='?' (DbType = Int32), @__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='60']
+SELECT t.id, t.brand, t.lat, t.lng, t.name, t.street_address, t.suburb, t0.id, t0.available, t0.created_at, t0.downvotes, t0."fuel type", t0.is_hidden, t0.notes, t0.photo_url, t0.price, t0.queue_mins, t0.station_id, t0.upvotes, t0.user_id
+FROM (
+    SELECT s.id, s.brand, s.lat, s.lng, s.name, s.street_address, s.suburb
+    FROM stations AS s
+    ORDER BY s.name
+    LIMIT @__p_1 OFFSET @__p_0
+) AS t
+LEFT JOIN (
+    SELECT t1.id, t1.available, t1.created_at, t1.downvotes, t1."fuel type", t1.is_hidden, t1.notes, t1.photo_url, t1.price, t1.queue_mins, t1.station_id, t1.upvotes, t1.user_id
+    FROM (
+        SELECT r.id, r.available, r.created_at, r.downvotes, r."fuel type", r.is_hidden, r.notes, r.photo_url, r.price, r.queue_mins, r.station_id, r.upvotes, r.user_id, ROW_NUMBER() OVER(PARTITION BY r.station_id ORDER BY r.created_at DESC) AS row
+        FROM reports AS r
+        WHERE NOT (r.is_hidden)
+    ) AS t1
+    WHERE t1.row <= 1
+) AS t0 ON t.id = t0.station_id
+ORDER BY t.name
+2026-04-15 16:23:04.334 +02:00 [INF] Executed DbCommand (222ms) [Parameters=[@__userIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = ANY (@__userIds_0)
+2026-04-15 16:23:05.426 +02:00 [INF] Executed DbCommand (150ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT count(*)::int
+FROM stations AS s
+2026-04-15 16:23:05.483 +02:00 [INF] Executing ViewResult, running view Index.
+2026-04-15 16:23:05.613 +02:00 [INF] Executed ViewResult - view Index executed in 130.8698ms.
+2026-04-15 16:23:05.629 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Index (GasStationApp) in 3739.9631ms
+2026-04-15 16:23:05.640 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Index (GasStationApp)'
+2026-04-15 16:23:05.660 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/ - 200 null text/html; charset=utf-8 3871.2061ms
+2026-04-15 16:23:05.669 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/astron.jpg?v=63911866985546 - null null
+2026-04-15 16:23:05.670 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/astron.jpg?v=63911866985547 - null null
+2026-04-15 16:23:05.671 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/BP.png?v=63911866985547 - null null
+2026-04-15 16:23:05.679 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/astron.jpg?v=63911866985543 - null null
+2026-04-15 16:23:05.706 +02:00 [INF] Sending file. Request path: '/images/logos/astron.jpg'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\astron.jpg'
+2026-04-15 16:23:05.713 +02:00 [INF] Sending file. Request path: '/images/logos/astron.jpg'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\astron.jpg'
+2026-04-15 16:23:05.716 +02:00 [INF] Sending file. Request path: '/images/logos/BP.png'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\BP.png'
+2026-04-15 16:23:05.720 +02:00 [INF] Sending file. Request path: '/images/logos/astron.jpg'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\astron.jpg'
+2026-04-15 16:23:05.723 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/astron.jpg?v=63911866985546 - 200 6312 image/jpeg 53.6171ms
+2026-04-15 16:23:05.726 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/astron.jpg?v=63911866985547 - 200 6312 image/jpeg 55.8948ms
+2026-04-15 16:23:05.732 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/BP.png?v=63911866985547 - 200 116535 image/png 60.0221ms
+2026-04-15 16:23:05.736 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/astron.jpg?v=63911866985543 - 200 6312 image/jpeg 56.4006ms
+2026-04-15 16:23:24.904 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Map - null null
+2026-04-15 16:23:24.922 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:23:24.929 +02:00 [INF] Route matched with {action = "Map", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Map() on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:23:26.460 +02:00 [INF] Executed DbCommand (338ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='60']
+SELECT s.id, s.name, s.brand, s.lat, s.lng, s.street_address, s.suburb
+FROM stations AS s
+ORDER BY s.id
+LIMIT @__p_0
+2026-04-15 16:23:27.671 +02:00 [INF] Executed DbCommand (155ms) [Parameters=[@__stationIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.station_id, r.available, r."fuel type" AS fuel_type, r.queue_mins, r.price, r.created_at
+FROM reports AS r
+WHERE r.station_id = ANY (@__stationIds_0) AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:23:27.745 +02:00 [INF] Executing ViewResult, running view Map.
+2026-04-15 16:23:27.772 +02:00 [INF] Executed ViewResult - view Map executed in 28.5275ms.
+2026-04-15 16:23:27.782 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Map (GasStationApp) in 2848.2098ms
+2026-04-15 16:23:27.791 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:23:27.803 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Map - 200 null text/html; charset=utf-8 2899.0649ms
+2026-04-15 16:23:27.817 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/map.js?v=4-hJTWCppCeAb3mGJg6ASNWNYuG6GBmkmuZUGmqJ4ZI - null null
+2026-04-15 16:23:27.828 +02:00 [INF] Sending file. Request path: '/js/map.js'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\js\map.js'
+2026-04-15 16:23:27.833 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/map.js?v=4-hJTWCppCeAb3mGJg6ASNWNYuG6GBmkmuZUGmqJ4ZI - 200 13331 text/javascript 16.323ms
+2026-04-15 16:23:46.685 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Map - null null
+2026-04-15 16:23:46.718 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:23:46.720 +02:00 [INF] Route matched with {action = "Map", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Map() on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:23:47.981 +02:00 [INF] Executed DbCommand (326ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='60']
+SELECT s.id, s.name, s.brand, s.lat, s.lng, s.street_address, s.suburb
+FROM stations AS s
+ORDER BY s.id
+LIMIT @__p_0
+2026-04-15 16:23:49.207 +02:00 [INF] Executed DbCommand (159ms) [Parameters=[@__stationIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.station_id, r.available, r."fuel type" AS fuel_type, r.queue_mins, r.price, r.created_at
+FROM reports AS r
+WHERE r.station_id = ANY (@__stationIds_0) AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:23:49.217 +02:00 [INF] Executing ViewResult, running view Map.
+2026-04-15 16:23:49.233 +02:00 [INF] Executed ViewResult - view Map executed in 16.0535ms.
+2026-04-15 16:23:49.239 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Map (GasStationApp) in 2514.2983ms
+2026-04-15 16:23:49.246 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:23:49.251 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Map - 200 null text/html; charset=utf-8 2565.4356ms
+2026-04-15 16:23:49.269 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/map.js?v=4-hJTWCppCeAb3mGJg6ASNWNYuG6GBmkmuZUGmqJ4ZI - null null
+2026-04-15 16:23:49.279 +02:00 [INF] The file /js/map.js was not modified
+2026-04-15 16:23:49.283 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/map.js?v=4-hJTWCppCeAb3mGJg6ASNWNYuG6GBmkmuZUGmqJ4ZI - 304 null text/javascript 13.9411ms
+2026-04-15 16:28:29.496 +02:00 [INF] Application is shutting down...
+2026-04-15 16:28:42.895 +02:00 [INF] Executed DbCommand (203ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:28:44.037 +02:00 [INF] Executed DbCommand (151ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:28:46.076 +02:00 [INF] Executed DbCommand (155ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:28:48.089 +02:00 [INF] Executed DbCommand (155ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:28:49.153 +02:00 [INF] Executed DbCommand (147ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:28:49.170 +02:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-15 16:28:51.187 +02:00 [INF] Executed DbCommand (152ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2026-04-15 16:28:52.497 +02:00 [INF] Executed DbCommand (161ms) [Parameters=[@__adminEmail_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."UserName" = @__adminEmail_0
+LIMIT 1
+2026-04-15 16:28:53.640 +02:00 [INF] Executed DbCommand (150ms) [Parameters=[@__adminUser_Id_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AspNetUserClaims" AS a
+    WHERE a."UserId" = @__adminUser_Id_0 AND a."ClaimType" = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role' AND a."ClaimValue" = 'Admin')
+2026-04-15 16:28:54.726 +02:00 [INF] Executed DbCommand (151ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM stations AS s)
+2026-04-15 16:28:54.799 +02:00 [INF] Starting web host
+2026-04-15 16:28:54.818 +02:00 [INF] User profile is available. Using 'C:\Users\Tristan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-15 16:28:54.881 +02:00 [INF] Now listening on: http://localhost:5184
+2026-04-15 16:28:54.886 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-15 16:28:54.888 +02:00 [INF] Hosting environment: Development
+2026-04-15 16:28:54.891 +02:00 [INF] Content root path: C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS
+2026-04-15 16:29:47.911 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Map - null null
+2026-04-15 16:29:47.957 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:29:47.972 +02:00 [INF] Route matched with {action = "Map", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Map() on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:29:49.257 +02:00 [INF] Executed DbCommand (153ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='60']
+SELECT s.id, s.name, s.brand, s.lat, s.lng, s.street_address, s.suburb
+FROM stations AS s
+ORDER BY s.id
+LIMIT @__p_0
+2026-04-15 16:29:50.694 +02:00 [INF] Executed DbCommand (204ms) [Parameters=[@__stationIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.station_id, r.available, r."fuel type" AS fuel_type, r.queue_mins, r.price, r.created_at
+FROM reports AS r
+WHERE r.station_id = ANY (@__stationIds_0) AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:29:50.772 +02:00 [INF] Executing ViewResult, running view Map.
+2026-04-15 16:29:50.851 +02:00 [INF] Executed ViewResult - view Map executed in 76.8438ms.
+2026-04-15 16:29:50.859 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Map (GasStationApp) in 2881.8367ms
+2026-04-15 16:29:50.865 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:29:50.876 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Map - 200 null text/html; charset=utf-8 2965.1121ms
+2026-04-15 16:29:50.886 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/map.js?v=yuL6QnzSVnq31c_En4Y7Vdpf8r4I6pT6KiKU6IEaTjE - null null
+2026-04-15 16:29:50.902 +02:00 [INF] Sending file. Request path: '/js/map.js'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\js\map.js'
+2026-04-15 16:29:50.906 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/map.js?v=yuL6QnzSVnq31c_En4Y7Vdpf8r4I6pT6KiKU6IEaTjE - 200 18773 text/javascript 19.9375ms
+2026-04-15 16:40:55.244 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Map - null null
+2026-04-15 16:40:56.674 +02:00 [INF] Executed DbCommand (169ms) [Parameters=[@__p_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = @__p_0
+LIMIT 1
+2026-04-15 16:40:57.814 +02:00 [INF] Executed DbCommand (154ms) [Parameters=[@__user_Id_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."ClaimType", a."ClaimValue", a."UserId"
+FROM "AspNetUserClaims" AS a
+WHERE a."UserId" = @__user_Id_0
+2026-04-15 16:40:58.947 +02:00 [INF] Executed DbCommand (164ms) [Parameters=[@__userId_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a0."Name"
+FROM "AspNetUserRoles" AS a
+INNER JOIN "AspNetRoles" AS a0 ON a."RoleId" = a0."Id"
+WHERE a."UserId" = @__userId_0
+2026-04-15 16:40:58.960 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:40:58.963 +02:00 [INF] Route matched with {action = "Map", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Map() on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:41:00.180 +02:00 [INF] Executed DbCommand (182ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='60']
+SELECT s.id, s.name, s.brand, s.lat, s.lng, s.street_address, s.suburb
+FROM stations AS s
+ORDER BY s.id
+LIMIT @__p_0
+2026-04-15 16:41:01.665 +02:00 [INF] Executed DbCommand (158ms) [Parameters=[@__stationIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.station_id, r.available, r."fuel type" AS fuel_type, r.queue_mins, r.price, r.created_at
+FROM reports AS r
+WHERE r.station_id = ANY (@__stationIds_0) AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:41:01.676 +02:00 [INF] Executing ViewResult, running view Map.
+2026-04-15 16:41:01.688 +02:00 [INF] Executed ViewResult - view Map executed in 12.0825ms.
+2026-04-15 16:41:01.693 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Map (GasStationApp) in 2725.0113ms
+2026-04-15 16:41:01.698 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:41:01.704 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Map - 200 null text/html; charset=utf-8 6460.4286ms
+2026-04-15 16:41:01.716 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/map.js?v=i4Q50Q63V39SxZueyWXxIV1FwAeyO9WAJnmbh1LG9lA - null null
+2026-04-15 16:41:01.731 +02:00 [INF] Sending file. Request path: '/js/map.js'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\js\map.js'
+2026-04-15 16:41:01.737 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/map.js?v=i4Q50Q63V39SxZueyWXxIV1FwAeyO9WAJnmbh1LG9lA - 200 13212 text/javascript 21.0403ms
+2026-04-15 16:41:15.286 +02:00 [INF] Application is shutting down...
+2026-04-15 16:41:24.957 +02:00 [INF] Executed DbCommand (194ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:41:26.086 +02:00 [INF] Executed DbCommand (155ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:41:28.045 +02:00 [INF] Executed DbCommand (146ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:41:30.056 +02:00 [INF] Executed DbCommand (150ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:41:31.091 +02:00 [INF] Executed DbCommand (145ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:41:31.113 +02:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-15 16:41:33.168 +02:00 [INF] Executed DbCommand (162ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2026-04-15 16:41:34.523 +02:00 [INF] Executed DbCommand (163ms) [Parameters=[@__adminEmail_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."UserName" = @__adminEmail_0
+LIMIT 1
+2026-04-15 16:41:35.650 +02:00 [INF] Executed DbCommand (147ms) [Parameters=[@__adminUser_Id_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AspNetUserClaims" AS a
+    WHERE a."UserId" = @__adminUser_Id_0 AND a."ClaimType" = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role' AND a."ClaimValue" = 'Admin')
+2026-04-15 16:41:36.720 +02:00 [INF] Executed DbCommand (152ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM stations AS s)
+2026-04-15 16:41:36.805 +02:00 [INF] Starting web host
+2026-04-15 16:41:36.825 +02:00 [INF] User profile is available. Using 'C:\Users\Tristan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-15 16:41:36.880 +02:00 [INF] Now listening on: http://localhost:5184
+2026-04-15 16:41:36.885 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-15 16:41:36.887 +02:00 [INF] Hosting environment: Development
+2026-04-15 16:41:36.890 +02:00 [INF] Content root path: C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS
+2026-04-15 16:41:51.084 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Map - null null
+2026-04-15 16:41:51.135 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:41:51.150 +02:00 [INF] Route matched with {action = "Map", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Map() on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:41:52.336 +02:00 [INF] Executed DbCommand (161ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='60']
+SELECT s.id, s.name, s.brand, s.lat, s.lng, s.street_address, s.suburb
+FROM stations AS s
+ORDER BY s.id
+LIMIT @__p_0
+2026-04-15 16:41:53.776 +02:00 [INF] Executed DbCommand (200ms) [Parameters=[@__stationIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.station_id, r.available, r."fuel type" AS fuel_type, r.queue_mins, r.price, r.created_at
+FROM reports AS r
+WHERE r.station_id = ANY (@__stationIds_0) AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:41:53.878 +02:00 [INF] Executing ViewResult, running view Map.
+2026-04-15 16:41:53.977 +02:00 [INF] Executed ViewResult - view Map executed in 99.7337ms.
+2026-04-15 16:41:53.986 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Map (GasStationApp) in 2828.5565ms
+2026-04-15 16:41:53.994 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:41:54.006 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Map - 200 null text/html; charset=utf-8 2922.8641ms
+2026-04-15 16:41:54.018 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/map.js?v=i4Q50Q63V39SxZueyWXxIV1FwAeyO9WAJnmbh1LG9lA - null null
+2026-04-15 16:41:54.031 +02:00 [INF] The file /js/map.js was not modified
+2026-04-15 16:41:54.034 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/map.js?v=i4Q50Q63V39SxZueyWXxIV1FwAeyO9WAJnmbh1LG9lA - 304 null text/javascript 15.6775ms
+2026-04-15 16:41:57.194 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/.well-known/appspecific/com.chrome.devtools.json - null null
+2026-04-15 16:41:57.217 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/.well-known/appspecific/com.chrome.devtools.json - 404 0 null 23.235ms
+2026-04-15 16:41:57.242 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5184/.well-known/appspecific/com.chrome.devtools.json, Response status code: 404
+2026-04-15 16:41:57.424 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
+2026-04-15 16:41:57.437 +02:00 [INF] The file /lib/bootstrap/dist/js/bootstrap.bundle.min.js.map was not modified
+2026-04-15 16:41:57.445 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 304 null text/plain 20.8071ms
+2026-04-15 16:41:57.512 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/lib/bootstrap/dist/css/bootstrap.min.css.map - null null
+2026-04-15 16:41:57.521 +02:00 [INF] The file /lib/bootstrap/dist/css/bootstrap.min.css.map was not modified
+2026-04-15 16:41:57.524 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/lib/bootstrap/dist/css/bootstrap.min.css.map - 304 null text/plain 12.3259ms
+2026-04-15 16:43:38.708 +02:00 [INF] Application is shutting down...
+2026-04-15 16:43:48.777 +02:00 [INF] Executed DbCommand (205ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:43:49.957 +02:00 [INF] Executed DbCommand (163ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:43:52.042 +02:00 [INF] Executed DbCommand (150ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:43:54.096 +02:00 [INF] Executed DbCommand (155ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2026-04-15 16:43:55.234 +02:00 [INF] Executed DbCommand (156ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2026-04-15 16:43:55.253 +02:00 [INF] No migrations were applied. The database is already up to date.
+2026-04-15 16:43:57.389 +02:00 [INF] Executed DbCommand (168ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+2026-04-15 16:43:59.346 +02:00 [INF] Executed DbCommand (204ms) [Parameters=[@__adminEmail_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."UserName" = @__adminEmail_0
+LIMIT 1
+2026-04-15 16:44:00.481 +02:00 [INF] Executed DbCommand (152ms) [Parameters=[@__adminUser_Id_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AspNetUserClaims" AS a
+    WHERE a."UserId" = @__adminUser_Id_0 AND a."ClaimType" = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role' AND a."ClaimValue" = 'Admin')
+2026-04-15 16:44:01.596 +02:00 [INF] Executed DbCommand (156ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+SELECT EXISTS (
+    SELECT 1
+    FROM stations AS s)
+2026-04-15 16:44:01.663 +02:00 [INF] Starting web host
+2026-04-15 16:44:01.679 +02:00 [INF] User profile is available. Using 'C:\Users\Tristan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-15 16:44:01.727 +02:00 [INF] Now listening on: http://localhost:5184
+2026-04-15 16:44:01.730 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-15 16:44:01.733 +02:00 [INF] Hosting environment: Development
+2026-04-15 16:44:01.735 +02:00 [INF] Content root path: C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS
+2026-04-15 16:44:11.581 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Map - null null
+2026-04-15 16:44:11.625 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:44:11.636 +02:00 [INF] Route matched with {action = "Map", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Map() on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:44:12.795 +02:00 [INF] Executed DbCommand (159ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='60']
+SELECT s.id, s.name, s.brand, s.lat, s.lng, s.street_address, s.suburb
+FROM stations AS s
+ORDER BY s.id
+LIMIT @__p_0
+2026-04-15 16:44:14.295 +02:00 [INF] Executed DbCommand (216ms) [Parameters=[@__stationIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.station_id, r.available, r."fuel type" AS fuel_type, r.queue_mins, r.price, r.created_at
+FROM reports AS r
+WHERE r.station_id = ANY (@__stationIds_0) AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:44:14.369 +02:00 [INF] Executing ViewResult, running view Map.
+2026-04-15 16:44:14.441 +02:00 [INF] Executed ViewResult - view Map executed in 71.2408ms.
+2026-04-15 16:44:14.449 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Map (GasStationApp) in 2806.1939ms
+2026-04-15 16:44:14.454 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:44:14.467 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Map - 200 null text/html; charset=utf-8 2886.7672ms
+2026-04-15 16:44:14.484 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/map.js?v=NGURRSe9VY9F2zp-WXda1FlUCqGLG6tYjxlUdV9VfPk - null null
+2026-04-15 16:44:14.499 +02:00 [INF] Sending file. Request path: '/js/map.js'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\js\map.js'
+2026-04-15 16:44:14.502 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/map.js?v=NGURRSe9VY9F2zp-WXda1FlUCqGLG6tYjxlUdV9VfPk - 200 13248 text/javascript 18.5077ms
+2026-04-15 16:44:15.812 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/sw.js - null null
+2026-04-15 16:44:15.823 +02:00 [INF] Sending file. Request path: '/sw.js'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\sw.js'
+2026-04-15 16:44:15.830 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/sw.js - 200 2338 text/javascript 17.8439ms
+2026-04-15 16:44:15.853 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/css/site.css - null null
+2026-04-15 16:44:15.853 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/css/map.css - null null
+2026-04-15 16:44:15.855 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/site.js - null null
+2026-04-15 16:44:15.865 +02:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\css\site.css'
+2026-04-15 16:44:15.870 +02:00 [INF] Sending file. Request path: '/css/map.css'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\css\map.css'
+2026-04-15 16:44:15.878 +02:00 [INF] Sending file. Request path: '/js/site.js'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\js\site.js'
+2026-04-15 16:44:15.883 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/css/site.css - 200 667 text/css 29.4636ms
+2026-04-15 16:44:15.886 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/css/map.css - 200 1814 text/css 33.167ms
+2026-04-15 16:44:15.889 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/site.js - 200 5319 text/javascript 34.489ms
+2026-04-15 16:44:15.899 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/map.js - null null
+2026-04-15 16:44:15.906 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/station-details.js - null null
+2026-04-15 16:44:15.921 +02:00 [INF] Sending file. Request path: '/js/map.js'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\js\map.js'
+2026-04-15 16:44:15.930 +02:00 [INF] Sending file. Request path: '/js/station-details.js'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\js\station-details.js'
+2026-04-15 16:44:15.932 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/map.js - 200 13248 text/javascript 33.7657ms
+2026-04-15 16:44:15.935 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/station-details.js - 200 1231 text/javascript 29.5325ms
+2026-04-15 16:44:34.491 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/shell.jpg - null null
+2026-04-15 16:44:34.491 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/engen.png - null null
+2026-04-15 16:44:34.492 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/BP.png - null null
+2026-04-15 16:44:34.493 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/total.jpg - null null
+2026-04-15 16:44:34.494 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/caltex.png - null null
+2026-04-15 16:44:34.518 +02:00 [INF] The file /images/logos/shell.jpg was not modified
+2026-04-15 16:44:34.520 +02:00 [INF] The file /images/logos/engen.png was not modified
+2026-04-15 16:44:34.526 +02:00 [INF] The file /images/logos/BP.png was not modified
+2026-04-15 16:44:34.550 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/BP.png - 304 null image/png 57.6612ms
+2026-04-15 16:44:34.538 +02:00 [INF] The file /images/logos/caltex.png was not modified
+2026-04-15 16:44:34.541 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/shell.jpg - 304 null image/jpeg 49.7163ms
+2026-04-15 16:44:34.545 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/engen.png - 304 null image/png 53.7231ms
+2026-04-15 16:44:34.530 +02:00 [INF] The file /images/logos/total.jpg was not modified
+2026-04-15 16:44:34.567 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/caltex.png - 304 null image/png 73.6108ms
+2026-04-15 16:44:34.592 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/total.jpg - 304 null image/jpeg 98.6036ms
+2026-04-15 16:44:40.733 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Details/313?partial=true - null null
+2026-04-15 16:44:40.748 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Details (GasStationApp)'
+2026-04-15 16:44:40.762 +02:00 [INF] Route matched with {action = "Details", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Details(Int64, Boolean) on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:44:41.989 +02:00 [INF] Executed DbCommand (174ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='60']
+SELECT t.id, t.brand, t.lat, t.lng, t.name, t.street_address, t.suburb, t0.id, t0.available, t0.created_at, t0.downvotes, t0."fuel type", t0.is_hidden, t0.notes, t0.photo_url, t0.price, t0.queue_mins, t0.station_id, t0.upvotes, t0.user_id
+FROM (
+    SELECT s.id, s.brand, s.lat, s.lng, s.name, s.street_address, s.suburb
+    FROM stations AS s
+    WHERE s.id = @__id_0
+    LIMIT 1
+) AS t
+LEFT JOIN (
+    SELECT t1.id, t1.available, t1.created_at, t1.downvotes, t1."fuel type", t1.is_hidden, t1.notes, t1.photo_url, t1.price, t1.queue_mins, t1.station_id, t1.upvotes, t1.user_id
+    FROM (
+        SELECT r.id, r.available, r.created_at, r.downvotes, r."fuel type", r.is_hidden, r.notes, r.photo_url, r.price, r.queue_mins, r.station_id, r.upvotes, r.user_id, ROW_NUMBER() OVER(PARTITION BY r.station_id ORDER BY r.created_at DESC) AS row
+        FROM reports AS r
+        WHERE NOT (r.is_hidden)
+    ) AS t1
+    WHERE t1.row <= 1
+) AS t0 ON t.id = t0.station_id
+2026-04-15 16:44:43.101 +02:00 [INF] Executed DbCommand (147ms) [Parameters=[@__p_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = @__p_0
+LIMIT 1
+2026-04-15 16:44:44.185 +02:00 [INF] Executed DbCommand (151ms) [Parameters=[@__stationId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.id, r.available, r.created_at, r.downvotes, r."fuel type", r.is_hidden, r.notes, r.photo_url, r.price, r.queue_mins, r.station_id, r.upvotes, r.user_id
+FROM reports AS r
+WHERE r.station_id = @__stationId_0 AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:44:45.286 +02:00 [INF] Executed DbCommand (158ms) [Parameters=[@__userIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = ANY (@__userIds_0)
+2026-04-15 16:44:45.302 +02:00 [INF] Executing ViewResult, running view Details.
+2026-04-15 16:44:45.345 +02:00 [INF] Executed ViewResult - view Details executed in 43.9875ms.
+2026-04-15 16:44:45.348 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Details/313?partial=true - null null
+2026-04-15 16:44:45.351 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Details (GasStationApp) in 4584.9432ms
+2026-04-15 16:44:45.361 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Details (GasStationApp)'
+2026-04-15 16:44:45.365 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Details/313?partial=true - 200 null text/html; charset=utf-8 4631.8355ms
+2026-04-15 16:44:45.377 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/engen.png?v=63911868285329 - null null
+2026-04-15 16:44:45.397 +02:00 [INF] Sending file. Request path: '/images/logos/engen.png'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\engen.png'
+2026-04-15 16:44:45.410 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/engen.png?v=63911868285329 - 200 2611 image/png 32.7422ms
+2026-04-15 16:44:45.417 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Details (GasStationApp)'
+2026-04-15 16:44:45.436 +02:00 [INF] Route matched with {action = "Details", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Details(Int64, Boolean) on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:44:46.235 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/.well-known/appspecific/com.chrome.devtools.json - null null
+2026-04-15 16:44:46.255 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/.well-known/appspecific/com.chrome.devtools.json - 404 0 null 20.0138ms
+2026-04-15 16:44:46.276 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5184/.well-known/appspecific/com.chrome.devtools.json, Response status code: 404
+2026-04-15 16:44:46.906 +02:00 [INF] Executed DbCommand (156ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='60']
+SELECT t.id, t.brand, t.lat, t.lng, t.name, t.street_address, t.suburb, t0.id, t0.available, t0.created_at, t0.downvotes, t0."fuel type", t0.is_hidden, t0.notes, t0.photo_url, t0.price, t0.queue_mins, t0.station_id, t0.upvotes, t0.user_id
+FROM (
+    SELECT s.id, s.brand, s.lat, s.lng, s.name, s.street_address, s.suburb
+    FROM stations AS s
+    WHERE s.id = @__id_0
+    LIMIT 1
+) AS t
+LEFT JOIN (
+    SELECT t1.id, t1.available, t1.created_at, t1.downvotes, t1."fuel type", t1.is_hidden, t1.notes, t1.photo_url, t1.price, t1.queue_mins, t1.station_id, t1.upvotes, t1.user_id
+    FROM (
+        SELECT r.id, r.available, r.created_at, r.downvotes, r."fuel type", r.is_hidden, r.notes, r.photo_url, r.price, r.queue_mins, r.station_id, r.upvotes, r.user_id, ROW_NUMBER() OVER(PARTITION BY r.station_id ORDER BY r.created_at DESC) AS row
+        FROM reports AS r
+        WHERE NOT (r.is_hidden)
+    ) AS t1
+    WHERE t1.row <= 1
+) AS t0 ON t.id = t0.station_id
+2026-04-15 16:44:48.162 +02:00 [INF] Executed DbCommand (150ms) [Parameters=[@__p_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = @__p_0
+LIMIT 1
+2026-04-15 16:44:49.264 +02:00 [INF] Executed DbCommand (155ms) [Parameters=[@__stationId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.id, r.available, r.created_at, r.downvotes, r."fuel type", r.is_hidden, r.notes, r.photo_url, r.price, r.queue_mins, r.station_id, r.upvotes, r.user_id
+FROM reports AS r
+WHERE r.station_id = @__stationId_0 AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:44:50.340 +02:00 [INF] Executed DbCommand (151ms) [Parameters=[@__userIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = ANY (@__userIds_0)
+2026-04-15 16:44:50.347 +02:00 [INF] Executing ViewResult, running view Details.
+2026-04-15 16:44:50.352 +02:00 [INF] Executed ViewResult - view Details executed in 4.9297ms.
+2026-04-15 16:44:50.353 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Details/313?partial=true - null null
+2026-04-15 16:44:50.356 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Details (GasStationApp) in 4812.006ms
+2026-04-15 16:44:50.364 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Details (GasStationApp)'
+2026-04-15 16:44:50.365 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Details (GasStationApp)'
+2026-04-15 16:44:50.367 +02:00 [INF] Route matched with {action = "Details", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Details(Int64, Boolean) on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:44:50.370 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Details/313?partial=true - 200 null text/html; charset=utf-8 5022.6936ms
+2026-04-15 16:44:50.390 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/engen.png?v=63911868290351 - null null
+2026-04-15 16:44:50.399 +02:00 [INF] Sending file. Request path: '/images/logos/engen.png'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\engen.png'
+2026-04-15 16:44:50.406 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/engen.png?v=63911868290351 - 200 2611 image/png 15.0609ms
+2026-04-15 16:44:51.481 +02:00 [INF] Executed DbCommand (155ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='60']
+SELECT t.id, t.brand, t.lat, t.lng, t.name, t.street_address, t.suburb, t0.id, t0.available, t0.created_at, t0.downvotes, t0."fuel type", t0.is_hidden, t0.notes, t0.photo_url, t0.price, t0.queue_mins, t0.station_id, t0.upvotes, t0.user_id
+FROM (
+    SELECT s.id, s.brand, s.lat, s.lng, s.name, s.street_address, s.suburb
+    FROM stations AS s
+    WHERE s.id = @__id_0
+    LIMIT 1
+) AS t
+LEFT JOIN (
+    SELECT t1.id, t1.available, t1.created_at, t1.downvotes, t1."fuel type", t1.is_hidden, t1.notes, t1.photo_url, t1.price, t1.queue_mins, t1.station_id, t1.upvotes, t1.user_id
+    FROM (
+        SELECT r.id, r.available, r.created_at, r.downvotes, r."fuel type", r.is_hidden, r.notes, r.photo_url, r.price, r.queue_mins, r.station_id, r.upvotes, r.user_id, ROW_NUMBER() OVER(PARTITION BY r.station_id ORDER BY r.created_at DESC) AS row
+        FROM reports AS r
+        WHERE NOT (r.is_hidden)
+    ) AS t1
+    WHERE t1.row <= 1
+) AS t0 ON t.id = t0.station_id
+2026-04-15 16:44:52.551 +02:00 [INF] Executed DbCommand (150ms) [Parameters=[@__p_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = @__p_0
+LIMIT 1
+2026-04-15 16:44:53.625 +02:00 [INF] Executed DbCommand (150ms) [Parameters=[@__stationId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.id, r.available, r.created_at, r.downvotes, r."fuel type", r.is_hidden, r.notes, r.photo_url, r.price, r.queue_mins, r.station_id, r.upvotes, r.user_id
+FROM reports AS r
+WHERE r.station_id = @__stationId_0 AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:44:54.696 +02:00 [INF] Executed DbCommand (150ms) [Parameters=[@__userIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = ANY (@__userIds_0)
+2026-04-15 16:44:54.702 +02:00 [INF] Executing ViewResult, running view Details.
+2026-04-15 16:44:54.707 +02:00 [INF] Executed ViewResult - view Details executed in 4.4349ms.
+2026-04-15 16:44:54.710 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Details/313?partial=true - null null
+2026-04-15 16:44:54.713 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Details (GasStationApp) in 4334.1697ms
+2026-04-15 16:44:54.720 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Details (GasStationApp)'
+2026-04-15 16:44:54.721 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Details (GasStationApp)'
+2026-04-15 16:44:54.725 +02:00 [INF] Route matched with {action = "Details", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Details(Int64, Boolean) on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:44:54.729 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Details/313?partial=true - 200 null text/html; charset=utf-8 4376.1928ms
+2026-04-15 16:44:54.745 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/engen.png?v=63911868294705 - null null
+2026-04-15 16:44:54.753 +02:00 [INF] Sending file. Request path: '/images/logos/engen.png'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\engen.png'
+2026-04-15 16:44:54.760 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/engen.png?v=63911868294705 - 200 2611 image/png 15.1913ms
+2026-04-15 16:44:55.811 +02:00 [INF] Executed DbCommand (152ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='60']
+SELECT t.id, t.brand, t.lat, t.lng, t.name, t.street_address, t.suburb, t0.id, t0.available, t0.created_at, t0.downvotes, t0."fuel type", t0.is_hidden, t0.notes, t0.photo_url, t0.price, t0.queue_mins, t0.station_id, t0.upvotes, t0.user_id
+FROM (
+    SELECT s.id, s.brand, s.lat, s.lng, s.name, s.street_address, s.suburb
+    FROM stations AS s
+    WHERE s.id = @__id_0
+    LIMIT 1
+) AS t
+LEFT JOIN (
+    SELECT t1.id, t1.available, t1.created_at, t1.downvotes, t1."fuel type", t1.is_hidden, t1.notes, t1.photo_url, t1.price, t1.queue_mins, t1.station_id, t1.upvotes, t1.user_id
+    FROM (
+        SELECT r.id, r.available, r.created_at, r.downvotes, r."fuel type", r.is_hidden, r.notes, r.photo_url, r.price, r.queue_mins, r.station_id, r.upvotes, r.user_id, ROW_NUMBER() OVER(PARTITION BY r.station_id ORDER BY r.created_at DESC) AS row
+        FROM reports AS r
+        WHERE NOT (r.is_hidden)
+    ) AS t1
+    WHERE t1.row <= 1
+) AS t0 ON t.id = t0.station_id
+2026-04-15 16:44:56.927 +02:00 [INF] Executed DbCommand (154ms) [Parameters=[@__p_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = @__p_0
+LIMIT 1
+2026-04-15 16:44:58.116 +02:00 [INF] Executed DbCommand (154ms) [Parameters=[@__stationId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.id, r.available, r.created_at, r.downvotes, r."fuel type", r.is_hidden, r.notes, r.photo_url, r.price, r.queue_mins, r.station_id, r.upvotes, r.user_id
+FROM reports AS r
+WHERE r.station_id = @__stationId_0 AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:44:59.349 +02:00 [INF] Executed DbCommand (155ms) [Parameters=[@__userIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = ANY (@__userIds_0)
+2026-04-15 16:44:59.356 +02:00 [INF] Executing ViewResult, running view Details.
+2026-04-15 16:44:59.360 +02:00 [INF] Executed ViewResult - view Details executed in 4.2566ms.
+2026-04-15 16:44:59.363 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Details/313?partial=true - null null
+2026-04-15 16:44:59.365 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Details (GasStationApp) in 4630.4361ms
+2026-04-15 16:44:59.373 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Details (GasStationApp)'
+2026-04-15 16:44:59.377 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Details (GasStationApp)'
+2026-04-15 16:44:59.380 +02:00 [INF] Route matched with {action = "Details", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Details(Int64, Boolean) on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:44:59.383 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Details/313?partial=true - 200 null text/html; charset=utf-8 4673.5441ms
+2026-04-15 16:44:59.400 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/engen.png?v=63911868299359 - null null
+2026-04-15 16:44:59.415 +02:00 [INF] Sending file. Request path: '/images/logos/engen.png'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\engen.png'
+2026-04-15 16:44:59.421 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/engen.png?v=63911868299359 - 200 2611 image/png 20.5746ms
+2026-04-15 16:45:00.586 +02:00 [INF] Executed DbCommand (165ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='60']
+SELECT t.id, t.brand, t.lat, t.lng, t.name, t.street_address, t.suburb, t0.id, t0.available, t0.created_at, t0.downvotes, t0."fuel type", t0.is_hidden, t0.notes, t0.photo_url, t0.price, t0.queue_mins, t0.station_id, t0.upvotes, t0.user_id
+FROM (
+    SELECT s.id, s.brand, s.lat, s.lng, s.name, s.street_address, s.suburb
+    FROM stations AS s
+    WHERE s.id = @__id_0
+    LIMIT 1
+) AS t
+LEFT JOIN (
+    SELECT t1.id, t1.available, t1.created_at, t1.downvotes, t1."fuel type", t1.is_hidden, t1.notes, t1.photo_url, t1.price, t1.queue_mins, t1.station_id, t1.upvotes, t1.user_id
+    FROM (
+        SELECT r.id, r.available, r.created_at, r.downvotes, r."fuel type", r.is_hidden, r.notes, r.photo_url, r.price, r.queue_mins, r.station_id, r.upvotes, r.user_id, ROW_NUMBER() OVER(PARTITION BY r.station_id ORDER BY r.created_at DESC) AS row
+        FROM reports AS r
+        WHERE NOT (r.is_hidden)
+    ) AS t1
+    WHERE t1.row <= 1
+) AS t0 ON t.id = t0.station_id
+2026-04-15 16:45:01.647 +02:00 [INF] Executed DbCommand (146ms) [Parameters=[@__p_0='?'], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = @__p_0
+LIMIT 1
+2026-04-15 16:45:02.715 +02:00 [INF] Executed DbCommand (150ms) [Parameters=[@__stationId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.id, r.available, r.created_at, r.downvotes, r."fuel type", r.is_hidden, r.notes, r.photo_url, r.price, r.queue_mins, r.station_id, r.upvotes, r.user_id
+FROM reports AS r
+WHERE r.station_id = @__stationId_0 AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:45:03.788 +02:00 [INF] Executed DbCommand (150ms) [Parameters=[@__userIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a.karma, a."LockoutEnabled", a."LockoutEnd", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."Id" = ANY (@__userIds_0)
+2026-04-15 16:45:03.796 +02:00 [INF] Executing ViewResult, running view Details.
+2026-04-15 16:45:03.800 +02:00 [INF] Executed ViewResult - view Details executed in 4.0923ms.
+2026-04-15 16:45:03.804 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Details (GasStationApp) in 4415.2105ms
+2026-04-15 16:45:03.807 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Details (GasStationApp)'
+2026-04-15 16:45:03.812 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Details/313?partial=true - 200 null text/html; charset=utf-8 4449.3989ms
+2026-04-15 16:45:03.823 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/images/logos/engen.png?v=63911868303799 - null null
+2026-04-15 16:45:03.834 +02:00 [INF] Sending file. Request path: '/images/logos/engen.png'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\images\logos\engen.png'
+2026-04-15 16:45:03.842 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/images/logos/engen.png?v=63911868303799 - 200 2611 image/png 18.8032ms
+2026-04-15 16:46:09.830 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/Stations/Map - null null
+2026-04-15 16:46:09.840 +02:00 [INF] Executing endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:46:09.842 +02:00 [INF] Route matched with {action = "Map", controller = "Stations"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Map() on controller GasStationApp.Controllers.StationsController (GasStationApp).
+2026-04-15 16:46:11.289 +02:00 [INF] Executed DbCommand (311ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='60']
+SELECT s.id, s.name, s.brand, s.lat, s.lng, s.street_address, s.suburb
+FROM stations AS s
+ORDER BY s.id
+LIMIT @__p_0
+2026-04-15 16:46:12.776 +02:00 [INF] Executed DbCommand (155ms) [Parameters=[@__stationIds_0='?' (DbType = Object)], CommandType='"Text"', CommandTimeout='60']
+SELECT r.station_id, r.available, r."fuel type" AS fuel_type, r.queue_mins, r.price, r.created_at
+FROM reports AS r
+WHERE r.station_id = ANY (@__stationIds_0) AND NOT (r.is_hidden)
+ORDER BY r.created_at DESC
+2026-04-15 16:46:12.784 +02:00 [INF] Executing ViewResult, running view Map.
+2026-04-15 16:46:12.791 +02:00 [INF] Executed ViewResult - view Map executed in 6.5198ms.
+2026-04-15 16:46:12.795 +02:00 [INF] Executed action GasStationApp.Controllers.StationsController.Map (GasStationApp) in 2948.0166ms
+2026-04-15 16:46:12.798 +02:00 [INF] Executed endpoint 'GasStationApp.Controllers.StationsController.Map (GasStationApp)'
+2026-04-15 16:46:12.801 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/Stations/Map - 200 null text/html; charset=utf-8 2970.3462ms
+2026-04-15 16:46:12.863 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/map.js?v=NGURRSe9VY9F2zp-WXda1FlUCqGLG6tYjxlUdV9VfPk - null null
+2026-04-15 16:46:12.876 +02:00 [INF] The file /js/map.js was not modified
+2026-04-15 16:46:12.879 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/map.js?v=NGURRSe9VY9F2zp-WXda1FlUCqGLG6tYjxlUdV9VfPk - 304 null text/javascript 16.5837ms
+2026-04-15 16:46:12.894 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/.well-known/appspecific/com.chrome.devtools.json - null null
+2026-04-15 16:46:12.902 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/.well-known/appspecific/com.chrome.devtools.json - 404 0 null 8.1347ms
+2026-04-15 16:46:12.918 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5184/.well-known/appspecific/com.chrome.devtools.json, Response status code: 404
+2026-04-15 16:46:14.826 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/sw.js - null null
+2026-04-15 16:46:14.834 +02:00 [INF] Sending file. Request path: '/sw.js'. Physical path: 'C:\Users\Tristan\source\repos\WHEREGASS\WHEREGASS\wwwroot\sw.js'
+2026-04-15 16:46:14.837 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/sw.js - 200 2929 text/javascript 11.2496ms
+2026-04-15 16:46:14.864 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5184/js/map.js - null null
+2026-04-15 16:46:14.871 +02:00 [INF] The file /js/map.js was not modified
+2026-04-15 16:46:14.875 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5184/js/map.js - 304 null text/javascript 10.8503ms
+2026-04-15 16:46:15.781 +02:00 [INF] Application is shutting down...

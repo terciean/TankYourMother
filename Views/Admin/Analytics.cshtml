@@ -1,0 +1,219 @@
+@using System.Text.Json
+@model dynamic
+
+@{
+    ViewData["Title"] = "Admin Analytics";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="bi bi-graph-up"></i> Admin Analytics</h1>
+        <div class="text-muted">System Overview & Performance</div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="card-title opacity-75">Total Stations</h6>
+                    <h2 class="mb-0">@Model.TotalStations</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="card-title opacity-75">Total Reports</h6>
+                    <h2 class="mb-0">@Model.TotalReports</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="card-title opacity-75">Active Users</h6>
+                    <h2 class="mb-0">@Model.TotalUsers</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="card-title opacity-75">Growth (Last 7d)</h6>
+                    <h2 class="mb-0">@(((IEnumerable<dynamic>)Model.ReportsByDay).Sum(r => (int)r.Count))</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <!-- Activity Chart -->
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Report Activity (Last 7 Days)</h5>
+                    <canvas id="activityChart" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- Simulator & Top Contributors -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 mb-4 bg-dark text-white">
+                <div class="card-body">
+                    <h5 class="card-title mb-3"><i class="bi bi-cpu"></i> Simulator Control</h5>
+                    <p class="small opacity-75">Manually trigger the proximity logic to test your phone's notification & wake-up flow.</p>
+                    <button onclick="simulateProximity()" class="btn btn-warning w-100 fw-bold py-3 shadow-sm">
+                        <i class="bi bi-bell-fill"></i> TEST MY PHONE NOW
+                    </button>
+                    <div id="simStatus" class="small mt-2 text-center d-none">
+                        <i class="bi bi-check-circle-fill text-success"></i> Notification Sent!
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Top Contributors</h5>
+                    <div class="list-group list-group-flush">
+                        @foreach (var user in Model.TopContributors)
+                        {
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span><i class="bi bi-person-circle me-2 text-primary"></i> @user.UserName</span>
+                                <span class="badge bg-primary rounded-pill">@user.Karma pts</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <!-- Brand Distribution -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Stations by Brand</h5>
+                    <canvas id="brandChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- Recent Activity Table -->
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Recent Reports</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover small">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Station</th>
+                                    <th>Status</th>
+                                    <th>Votes</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var report in Model.LatestReports)
+                                {
+                                    <tr>
+                                        <td class="fw-bold">@report.StationName</td>
+                                        <td>
+                                            <span class="badge bg-@(report.available ? "success" : "danger")">
+                                                @(report.available ? "Available" : "No Fuel")
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success"><i class="bi bi-arrow-up"></i> @report.upvotes</span>
+                                            <span class="text-danger ms-2"><i class="bi bi-arrow-down"></i> @report.downvotes</span>
+                                        </td>
+                                        <td class="text-muted">@report.created_at.ToString("HH:mm")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Activity Chart
+        const activityData = @Html.Raw(JsonSerializer.Serialize(Model.ReportsByDay));
+        new Chart(document.getElementById('activityChart'), {
+            type: 'line',
+            data: {
+                labels: activityData.map(d => new Date(d.Date).toLocaleDateString('en-US', { weekday: 'short' })),
+                datasets: [{
+                    label: 'Reports',
+                    data: activityData.map(d => d.Count),
+                    borderColor: '#0d6efd',
+                    backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+            }
+        });
+
+        // Brand Chart
+        const brandData = @Html.Raw(JsonSerializer.Serialize(Model.ReportsByBrand));
+        new Chart(document.getElementById('brandChart'), {
+            type: 'doughnut',
+            data: {
+                labels: brandData.map(b => b.Brand),
+                datasets: [{
+                    data: brandData.map(b => b.Count),
+                    backgroundColor: [
+                        '#0d6efd', '#198754', '#ffc107', '#dc3545', '#6610f2', 
+                        '#fd7e14', '#20c997', '#0dcaf0', '#6c757d', '#343a40'
+                    ]
+                }]
+            },
+            options: {
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15 } } }
+            }
+        });
+
+        function simulateProximity() {
+            if (!('serviceWorker' in navigator)) {
+                alert("PWA/Service Worker not supported on this browser.");
+                return;
+            }
+
+            if (Notification.permission !== "granted") {
+                Notification.requestPermission().then(p => {
+                    if (p !== "granted") alert("Notification permission denied.");
+                });
+            }
+
+            navigator.serviceWorker.ready.then(reg => {
+                const testStation = { id: 1, name: "TEST STATION (MOCK)" };
+                reg.showNotification("MOCK Proximity Alert!", {
+                    body: `Simulator: You are at ${testStation.name}. Wet or Dry?`,
+                    icon: "/images/logos/fuel.png",
+                    vibrate: [500, 200, 500],
+                    data: { stationId: testStation.id },
+                    actions: [
+                        { action: 'yes', title: 'Yes, Wet ⚡' },
+                        { action: 'no', title: 'No, Dry ❌' }
+                    ]
+                });
+
+                document.getElementById('simStatus').classList.remove('d-none');
+                setTimeout(() => {
+                    document.getElementById('simStatus').classList.add('d-none');
+                }, 3000);
+            });
+        }
+    </script>
+}

@@ -1,0 +1,48 @@
+@model IEnumerable<GasStationApp.Models.Report>
+
+<ul class="list-group list-group-flush">
+    @foreach (var report in Model ?? Enumerable.Empty<GasStationApp.Models.Report>())
+    {
+        <li class="list-group-item px-0">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <div>
+                    <span class="badge @(report.available ? "bg-success" : "bg-danger")" style="font-size: 0.7rem;">
+                        @(report.available ? "Available" : "Empty")
+                    </span>
+                    <span class="fw-bold ms-1">@report.fuel_type</span>
+                    @if (report.price.HasValue)
+                    {
+                        <span class="ms-1 text-primary fw-bold">R @report.price.Value.ToString("N2")</span>
+                    }
+                </div>
+                <div class="btn-group btn-group-xs">
+                    <button onclick="vote(@report.id, true, @report.station_id)" class="btn btn-outline-success btn-xs py-0 px-1" style="font-size: 0.7rem;">
+                        <i class="bi bi-hand-thumbs-up"></i> <span id="up-@report.id">@report.upvotes</span>
+                    </button>
+                    <button onclick="vote(@report.id, false, @report.station_id)" class="btn btn-outline-danger btn-xs py-0 px-1" style="font-size: 0.7rem;">
+                        <i class="bi bi-hand-thumbs-down"></i> <span id="down-@report.id">@report.downvotes</span>
+                    </button>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center opacity-75" style="font-size: 0.75rem;">
+                <span>
+                    @if (report.Author != null)
+                    {
+                        <span class="badge rounded-pill bg-@report.Author.GetBadgeColor() p-1" style="font-size: 0.6rem;">
+                            <i class="bi bi-award"></i> @report.Author.GetBadge()
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Anonymous</span>
+                    }
+                    | @report.created_at.ToString("g")
+                </span>
+            </div>
+            @if (!string.IsNullOrEmpty(report.notes))
+            {
+                <div class="mt-1 p-1 bg-light rounded small" style="font-size: 0.7rem;">@report.notes</div>
+            }
+        </li>
+    }
+</ul>

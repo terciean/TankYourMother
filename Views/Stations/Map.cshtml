@@ -1,0 +1,156 @@
+@model dynamic
+@using System.Text.Json
+@using System.Text.Json.Serialization
+
+@{
+    ViewData["Title"] = "Gas Stations Map";
+    var stationsJson = ViewBag.StationsJson as string ?? "[]";
+}
+
+@section Head {
+    <link rel="manifest" href="/manifest.json">
+}
+
+<div class="container-fluid p-0 position-relative d-flex" style="height: calc(100vh - 56px);">
+    <!-- Sidebar Controls -->
+    <div id="sidebar" class="sidebar-controls bg-white shadow-lg p-4 d-flex flex-column transition-all" style="width: 340px; z-index: 1010; overflow-y: auto;">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="mb-0 fw-bold text-primary"><i class="bi bi-fuel-pump"></i> Gas Finder</h4>
+            <button onclick="toggleSidebar()" class="btn btn-outline-primary btn-sm d-md-none rounded-pill px-3 shadow-sm border">
+                <i class="bi bi-map-fill"></i> Back to Map
+            </button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="mb-4 position-relative">
+            <div class="input-group">
+                <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                <input type="text" id="stationSearch" class="form-control border-start-0" placeholder="Search suburb or brand..." autocomplete="off">
+            </div>
+            <div id="searchSuggestions" class="list-group shadow position-absolute w-100 d-none" style="z-index: 1050; top: 100%;">
+            </div>
+        </div>
+        
+        <div class="d-grid gap-3 mb-4">
+            <button onclick="findNearest()" class="btn btn-primary btn-lg py-3 fw-bold d-flex flex-column align-items-center shadow-sm rounded-3">
+                <i class="bi bi-cursor-fill fs-3 mb-1"></i>
+                <span>NEAREST STATION</span>
+            </button>
+            <button onclick="findNearestAvailable()" class="btn btn-success btn-lg py-3 fw-bold d-flex flex-column align-items-center shadow-sm rounded-3">
+                <i class="bi bi-check-circle-fill fs-3 mb-1"></i>
+                <span>NEAREST AVAILABLE</span>
+            </button>
+            <div class="d-flex gap-2">
+                <button onclick="centerOnUser()" class="btn btn-light border flex-grow-1 rounded-3">
+                    <i class="bi bi-geo-alt-fill text-primary"></i> Me
+                </button>
+                <button onclick="resetView()" class="btn btn-light border flex-grow-1 rounded-3">
+                    <i class="bi bi-arrow-clockwise"></i> Reset
+                </button>
+            </div>
+        </div>
+
+        <div id="trackingStatus" class="alert alert-info py-2 px-3 mb-4 rounded-3 d-none">
+            <div class="d-flex align-items-center">
+                <div class="spinner-grow spinner-grow-sm text-primary me-2" role="status"></div>
+                <small class="fw-bold">Background Protection Active</small>
+            </div>
+        </div>
+
+        <div id="nearbyListContainer">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="text-muted text-uppercase small fw-bold mb-0">Nearby (20km)</h6>
+                <span id="nearbyCount" class="badge bg-secondary rounded-pill">0</span>
+            </div>
+            <div id="nearbyList" class="list-group list-group-flush border-top">
+                <div class="text-center py-5 text-muted small">
+                    <div class="spinner-border spinner-border-sm text-primary mb-2" role="status"></div>
+                    <p>Detecting location...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Container -->
+    <div id="map" class="flex-grow-1 position-relative">
+        <form id="antiForgeryForm">@Html.AntiForgeryToken()</form>
+        <button id="sidebarToggleBtn" onclick="toggleSidebar()" class="btn btn-primary shadow-lg position-absolute top-0 start-0 m-3 d-none" style="z-index: 1000; width: 45px; height: 45px; border-radius: 50%;">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+
+        <!-- Mobile Floating Action Buttons -->
+        <div class="mobile-fabs d-md-none position-absolute bottom-0 end-0 m-3 d-flex flex-column gap-2" style="z-index: 1000;">
+            <button onclick="centerOnUser()" class="btn btn-white shadow-lg border-0 rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; background: white;">
+                <i class="bi bi-geo-alt-fill text-primary fs-4"></i>
+            </button>
+            <button onclick="findNearestAvailable()" class="btn btn-success shadow-lg border-0 rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                <i class="bi bi-check-circle-fill fs-4"></i>
+            </button>
+        </div>
+        <div class="desktop-fabs d-none d-md-flex position-absolute top-0 end-0 m-3 flex-column gap-2" style="z-index: 1000;">
+            <button onclick="centerOnUser()" class="btn btn-light shadow-lg border-0 rounded-circle d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
+                <i class="bi bi-geo-alt-fill text-primary fs-4"></i>
+            </button>
+            <button onclick="findNearestAvailable()" class="btn btn-success shadow-lg border-0 rounded-circle d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
+                <i class="bi bi-check-circle-fill fs-4"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Proximity Prompt Modal -->
+<div class="modal fade" id="proximityModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg text-center p-3">
+            <div class="modal-body">
+                <div class="mb-3">
+                    <div class="p-3 bg-primary bg-opacity-10 rounded-circle d-inline-block">
+                        <i class="bi bi-geo-fill text-primary fs-1"></i>
+                    </div>
+                </div>
+                <h5 class="fw-bold mb-1" id="proxStationName">Station Nearby!</h5>
+                <p class="text-muted small mb-4">You're at this station. Is there fuel available right now?</p>
+                
+                <div class="d-grid gap-2">
+                    <button onclick="submitProximityReport(true)" class="btn btn-success py-3 fw-bold rounded-pill">
+                        <i class="bi bi-check-circle-fill me-1"></i> YES, IT'S WET
+                    </button>
+                    <button onclick="submitProximityReport(false)" class="btn btn-danger py-3 fw-bold rounded-pill">
+                        <i class="bi bi-x-circle-fill me-1"></i> NO, IT'S DRY
+                    </button>
+                    <button type="button" class="btn btn-link text-muted btn-sm mt-2" data-bs-dismiss="modal">Not now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Station Modal -->
+<div class="modal fade" id="stationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg text-dark">
+            <div id="modalContent" class="modal-body p-0">
+                <div class="text-center p-5">
+                    <div class="spinner-border text-primary" role="status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="~/css/map.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script>
+        const stations = @Html.Raw(stationsJson);
+        window.isUserAuthenticated = @(User.Identity?.IsAuthenticated == true ? "true" : "false");
+    </script>
+    <script src="~/js/map.js" asp-append-version="true"></script>
+}
