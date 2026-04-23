@@ -28,7 +28,7 @@ COPY --from=publish /app/publish .
 
 # Create a directory for logs and set permissions
 USER root
-RUN mkdir -p Logs && chown -R 1654:1654 Logs
-USER 1654
+RUN mkdir -p Logs && chown -R 1000:1000 Logs
+USER 1000
 
 ENTRYPOINT ["dotnet", "GasStationApp.dll"]
